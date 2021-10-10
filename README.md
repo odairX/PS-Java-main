@@ -100,6 +100,12 @@ Obs.: Deve informar no cabeçalho do metódo o codigo do produto que deseja dele
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img7.png)
 
 
+## Tela do navegador chrome ao acessar http://localhost:8080/product
+
+
+![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img9.png)
+
+
 ## Conhecendo a estrutura do projeto
 
 Com o projeto rodando, é possivel observar que existem pastas model, controller e repositories. Elas foram criadas para ajudar no desenvolvimento de aplicações web usado o padrão MVC (model-view-controller).
