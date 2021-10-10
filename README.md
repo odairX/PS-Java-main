@@ -94,8 +94,98 @@ Obs.: Deve informar no cabeçalho do metódo o codigo do produto que deseja dele
 
 ## Conhecendo a estrutura do projeto
 
+Com o projeto rodando, é possivel observar que existem pastas model, controller e repositories. Elas foram criadas para ajudar no desenvolvimento de aplicações web usado o padrão MVC (model-view-controller).
 
+A classe ProductDao.java
 
+O Spring boot dispensa a necessidade de um servidor de aplicação (explicito) para executar nossa aplicação, facilitando a execução durante o desenvolvimento e até em produção.
+
+Para isso basta criarmos uma classe com o método main do Java:
+
+`
+@SpringBootApplication
+public class ProductDao {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ProductDao.class, args);
+	}
+
+}
+`
+Para disponibilizar nossa API publicamente, vamos criar uma classe ProductController.java para colocar todos os endpoints referentes a essa classe. E com as anotações necessárias do Spring.
+
+A anotação @GettMapping(“/product”) irá definir o caminho do endpoint, nesse caso /product para o metodo GET na consulta dos produtos do carrinho.
+
+`
+@RestController
+public class ProductController {
+
+	@Autowired
+	ProductRepository produtoRepository;
+
+	@GetMapping("/product")
+	public ResponseEntity<List<ProductModel>> getAllProdutos() {
+		List<ProductModel> produtosList = produtoRepository.findAll();
+		if (produtosList.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			for (ProductModel produto : produtosList) {
+				long id = produto.getIdProduto();
+				produto.add(linkTo(methodOn(ProductController.class).getOneProduto(id)).withSelfRel());
+			}
+			return new ResponseEntity<List<ProductModel>>(produtosList, HttpStatus.OK);
+		}
+	}
+
+  ... ... ...
+`
+
+A classe ProductModel.java representa a entidade com apenas os atributos necessários para serem expostos publicamente, no nosso exemplo apenas preciso, na criação ou atualização, informar no nome e valor do produto, preço, pontuação e nunca o seu id, pois o mesmo e gerado automaticamente. Podemos atenra aos métodos GET e SET que são técnicas padronizadas para gerenciamento sobre o acesso dos atributos.
+
+`
+@Entity
+@Table(name = "TB_PRODUTO")
+public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long idProduto;
+
+	@Valid
+	@NotNull
+	private String name;
+
+	@Valid
+	@NotNull
+	public BigDecimal price;
+
+	@Valid
+	@NotNull
+	public short score;
+
+	@Valid
+	@NotNull
+	public String image;
+
+	public long getIdProduto() {
+		return this.idProduto;
+	}
+  ... ...  ...
+`
+
+O 'Repositories' são interfaces, que o Spring irá tratar como injeção de dependências quando forem invocadas mais a frente.
+
+`
+@Repository
+public interface ProductRepository extends JpaRepository<ProductModel, Long> {
+
+}
+`
+
+Para uma melhor compreensão, segue abaixo a imagem da estrutura do projeto detalhada.
+
+![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img8.png)
 
 
 
