@@ -12,11 +12,34 @@ Este projeto tem como objetivo desenvolver uma API Restful funcional para aplica
 - Hibernate ( automatizar o mapeamento de nossas classes de domínio )
 - Visual Studio Code ( Ambiente de desenvolvimento)
 
-O Spring boot dispensa a necessidade de um servidor de aplicação para executar nossa aplicação, facilitando a execução durante o desenvolvimento e até em produção. Todas serão tratadas pelo Maven, segundo o arquivo pom.xml, logo em seguida pelo print de tela do projeto.
+O Spring boot dispensa a necessidade de um servidor de aplicação para executar nossa aplicação, facilitando a execução durante o desenvolvimento e até em produção. Todas as dependências serão tratadas pelo Maven, segundo o arquivo pom.xml, logo em seguida pelo print de tela do projeto.
 
 ## Estrutura do Projeto
 
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img1.png)
 
 ## Instruções de funcionamento do sistema
+
+O projeto usa o maven wrapper (mvnw).
+
+Instalando as dependências:
+
+```sh
+  ./mvnw clean install
+  ```
+
+Para Rodar o programa:
+
+```sh
+  ./mvnw spring-boot:run
+  ```
+
+Para executar os testes de exemplo basta o comando abaixo:
+  ```sh
+  ./mvnw clean test
+  ```
+
+O Banco de dados é criando automaticamente, ao iniciar o programa. No arquivo mostra o codigo de conexão com o Banco de Dados MySQL.
+
+![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img2.png)
 
