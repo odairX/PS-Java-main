@@ -54,18 +54,7 @@ public class ProductController {
 
 	@PostMapping("/product")
 	public ResponseEntity<ProductModel> saveProduto(@RequestBody @Valid ProductModel produto) {
-		try {
-			// Crio um objeto da entidade preenchendo com os valores do DTO e validando
-			if (produto.getName() == null) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-			produto.setName(produto.getName());
-
-			// Se foi criado com sucesso, retorno o objeto criado
-			return new ResponseEntity<ProductModel>(produtoRepository.save(produto), HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<ProductModel>(produtoRepository.save(produto), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/product/{id}")
