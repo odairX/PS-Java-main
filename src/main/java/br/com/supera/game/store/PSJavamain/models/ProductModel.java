@@ -15,25 +15,28 @@ import org.springframework.hateoas.RepresentationModel;
 
 @Entity
 @Table(name = "TB_PRODUTO")
-public class ProductModel extends RepresentationModel<ProductModel> implements Serializable{
+public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idProduto;
-    
-    @Valid @NotNull 
+
+	@Valid
+	@NotNull
 	private String name;
 
-	@Valid @NotNull 
+	@Valid
+	@NotNull
 	public BigDecimal price;
 
-	@Valid @NotNull 
+	@Valid
+	@NotNull
 	public short score;
- 
-	@Valid @NotNull 
-	public String image;
 
+	@Valid
+	@NotNull
+	public String image;
 
 	public long getIdProduto() {
 		return this.idProduto;
@@ -74,5 +77,5 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
 }

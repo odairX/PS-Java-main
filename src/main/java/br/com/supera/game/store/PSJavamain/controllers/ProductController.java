@@ -23,61 +23,60 @@ import br.com.supera.game.store.PSJavamain.repositories.ProductRepository;
 
 @RestController
 public class ProductController {
-	
+
 	@Autowired
 	ProductRepository produtoRepository;
-	
+
 	@GetMapping("/product")
-	public ResponseEntity<List<ProductModel>> getAllProdutos(){
+	public ResponseEntity<List<ProductModel>> getAllProdutos() {
 		List<ProductModel> produtosList = produtoRepository.findAll();
-		if(produtosList.isEmpty()) {
+		if (produtosList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}else {
-			for(ProductModel produto : produtosList) {
+		} else {
+			for (ProductModel produto : produtosList) {
 				long id = produto.getIdProduto();
 				produto.add(linkTo(methodOn(ProductController.class).getOneProduto(id)).withSelfRel());
 			}
 			return new ResponseEntity<List<ProductModel>>(produtosList, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/product/{id}")
-	public ResponseEntity<ProductModel> getOneProduto(@PathVariable(value="id") long id){
+	public ResponseEntity<ProductModel> getOneProduto(@PathVariable(value = "id") long id) {
 		Optional<ProductModel> produtoO = produtoRepository.findById(id);
-		if(!produtoO.isPresent()) {
+		if (!produtoO.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}else {
+		} else {
 			produtoO.get().add(linkTo(methodOn(ProductController.class).getAllProdutos()).withRel("Lista de Produtos"));
 			return new ResponseEntity<ProductModel>(produtoO.get(), HttpStatus.OK);
 		}
 	}
-	
-	@PostMapping("/product")
-	public ResponseEntity<ProductModel>saveProduto(@RequestBody @Valid ProductModel produto) {
-		try {
-            //Crio um objeto da entidade preenchendo com os valores do DTO e validando
-            if (produto.getName() == null) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            produto.setName(produto.getName());
 
-			//Se foi criado com sucesso, retorno o objeto criado
-            return new ResponseEntity<ProductModel>(produtoRepository.save(produto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-	}
-	
-	@DeleteMapping("/product/{id}")
-	public ResponseEntity<?> deleteProduto(@PathVariable(value="id") long id) {
-		Optional<ProductModel> produtoO = produtoRepository.findById(id);
-		if(!produtoO.isPresent()) {
+	@PostMapping("/product")
+	public ResponseEntity<ProductModel> saveProduto(@RequestBody @Valid ProductModel produto) {
+		try {
+			// Crio um objeto da entidade preenchendo com os valores do DTO e validando
+			if (produto.getName() == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			produto.setName(produto.getName());
+
+			// Se foi criado com sucesso, retorno o objeto criado
+			return new ResponseEntity<ProductModel>(produtoRepository.save(produto), HttpStatus.CREATED);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}else {
+		}
+	}
+
+	@DeleteMapping("/product/{id}")
+	public ResponseEntity<?> deleteProduto(@PathVariable(value = "id") long id) {
+		Optional<ProductModel> produtoO = produtoRepository.findById(id);
+		if (!produtoO.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
 			produtoRepository.delete(produtoO.get());
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	
-}
 
+}

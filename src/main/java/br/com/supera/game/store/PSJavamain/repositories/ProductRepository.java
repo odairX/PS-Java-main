@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.supera.game.store.PSJavamain.models.ProductModel;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductModel, Long>{
+public interface ProductRepository extends JpaRepository<ProductModel, Long> {
 
 }
