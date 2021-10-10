@@ -62,7 +62,9 @@ O Banco de dados é criando automaticamente, ao iniciar o programa. No arquivo m
 
 ## Primeiros passos com a API RESTful
 
-O REST utiliza-se métodos HTTP. É um estilo de arquitetura de software que define uma série de restrições para a criação de web services (serviços Web), ou seja, restringe como seus componentes devem interagir entre si. Além desse conceito, vale lembrar também que um serviço REST deve que toda requisição deve ser autossuficiente. A API terá os seguintes endpoints:
+Os princípios fundamentais do REST envolvem separar sua API em recursos lógicos. Esses recursos são manipulados usando solicitações HTTP nas quais o método (GET, POST, PUT, PATCH ou DELETE) tem um significado específico.
+
+É um estilo de arquitetura de software que define uma série de restrições para a criação de web services (serviços Web), ou seja, restringe como seus componentes devem interagir entre si. Além desse conceito, vale lembrar também que um serviço REST deve que toda requisição deve ser autossuficiente. A API terá os seguintes endpoints:
 
 
 * POST / http://localhost:8080/product : adiciona um produto ao carrinho
