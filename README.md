@@ -53,9 +53,12 @@ O Banco de dados é criando automaticamente, ao iniciar o programa. No arquivo m
 
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img2.png)
 
+
 ##  Exemplo do Spring boot run ao executar o comado
 
+
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img3.png)
+
 
 ## Primeiros passos com a API RESTful
 
@@ -79,24 +82,29 @@ Obs.: Não é necessário informar o codigo do produto o sistema gera automatica
 
 * GET / http://localhost:8080/product : retorna todos os produtos do carrinho.
 
+
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img5.png)
 
 
 * DELETE / http://localhost:8080/product/8 : deleta um produto do carrinho.
 
+
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img6.png)
+
 
 Obs.: Deve informar no cabeçalho do metódo o codigo do produto que deseja deletar.
 
 ## Tela do Banco de dados MySQL
 
+
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img7.png)
+
 
 ## Conhecendo a estrutura do projeto
 
 Com o projeto rodando, é possivel observar que existem pastas model, controller e repositories. Elas foram criadas para ajudar no desenvolvimento de aplicações web usado o padrão MVC (model-view-controller).
 
-A classe ProductDao.java
+1. A classe ProductDao.java
 
 O Spring boot dispensa a necessidade de um servidor de aplicação (explicito) para executar nossa aplicação, facilitando a execução durante o desenvolvimento e até em produção.
 
@@ -110,9 +118,9 @@ public class ProductDao {
 		SpringApplication.run(ProductDao.class, args);
 	}
 
-}
-`
-Para disponibilizar nossa API publicamente, vamos criar uma classe ProductController.java para colocar todos os endpoints referentes a essa classe. E com as anotações necessárias do Spring.
+}`
+
+2. Para disponibilizar nossa API publicamente, vamos criar uma classe ProductController.java para colocar todos os endpoints referentes a essa classe. E com as anotações necessárias do Spring.
 
 A anotação @GettMapping(“/product”) irá definir o caminho do endpoint, nesse caso /product para o metodo GET na consulta dos produtos do carrinho.
 
@@ -135,12 +143,10 @@ public class ProductController {
 			}
 			return new ResponseEntity<List<ProductModel>>(produtosList, HttpStatus.OK);
 		}
-	}
-
-  ... ... ...
+	}...
 `
 
-A classe ProductModel.java representa a entidade com apenas os atributos necessários para serem expostos publicamente, no nosso exemplo apenas preciso, na criação ou atualização, informar no nome e valor do produto, preço, pontuação e nunca o seu id, pois o mesmo e gerado automaticamente. Podemos atenra aos métodos GET e SET que são técnicas padronizadas para gerenciamento sobre o acesso dos atributos.
+3. A classe ProductModel.java representa a entidade com apenas os atributos necessários para serem expostos publicamente, no nosso exemplo apenas preciso, na criação ou atualização, informar no nome e valor do produto, preço, pontuação e nunca o seu id, pois o mesmo e gerado automaticamente. Podemos atenra aos métodos GET e SET que são técnicas padronizadas para gerenciamento sobre o acesso dos atributos.
 
 `
 @Entity
@@ -170,11 +176,10 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
 
 	public long getIdProduto() {
 		return this.idProduto;
-	}
-  ... ...  ...
+	}...
 `
 
-O 'Repositories' são interfaces, que o Spring irá tratar como injeção de dependências quando forem invocadas mais a frente.
+3. O 'Repositories' são interfaces, que o Spring irá tratar como injeção de dependências quando forem invocadas mais a frente.
 
 `
 @Repository
@@ -185,7 +190,9 @@ public interface ProductRepository extends JpaRepository<ProductModel, Long> {
 
 Para uma melhor compreensão, segue abaixo a imagem da estrutura do projeto detalhada.
 
+
 ![alt text](https://github.com/odairX/PS-Java-main/blob/main/src/main/img/img8.png)
+
 
 
 
